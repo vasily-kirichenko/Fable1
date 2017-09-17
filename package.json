@@ -24,6 +24,7 @@
     "bulma": "^0.5.2",
     "css-loader": "^0.28.7",
     "fable-loader": "^1.1.2",
+    "fable-react-toolbox": "^0.13.0",
     "fable-utils": "^1.0.6",
     "loglevel": "^1.5.0",
     "node-sass": "^4.5.3",

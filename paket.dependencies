@@ -4,6 +4,7 @@ storage:none
 
 nuget FSharp.Core
 nuget Fable.Core
+nuget Fable.PowerPack
 nuget Fable.Elmish.React
 nuget Fable.Elmish.Browser
 nuget Fable.Elmish.Debugger

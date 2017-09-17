@@ -2,6 +2,8 @@ module Timer.Types
 
 open System
 
-type Msg = Weather of DateTime * string
+type Msg = 
+    | GotWeather of DateTime * string
+    | FailedGotWeather of DateTime * string
 
 type Model = string
