@@ -6,7 +6,7 @@ type Msg =
     | GotWeather of DateTime * string
     | FailedGotWeather of DateTime * string
     | UrlChanged of string
-    | GetWeather of dispatch: (Msg -> unit)
+    | GetWeather
 
 [<RequireQualifiedAccess>]
 type Content = 

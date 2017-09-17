@@ -72,12 +72,12 @@ let root model dispatch =
         ] 
     ]
 
-let subscription model =
-  Cmd.map TimerMsg (Timer.State.subscribe model.timer)
+//let subscription model =
+  //Cmd.map TimerMsg (Timer.State.subscribe model.timer)
 
 // App
 Program.mkProgram init update root
-|> Program.withSubscription subscription
+//|> Program.withSubscription subscription
 |> Program.toNavigable (parseHash pageParser) urlUpdate
 |> Program.withReact "elmish-app"
 

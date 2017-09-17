@@ -16,35 +16,32 @@ open Fable.PowerPack
 //         Browser.localStorage.setItem(key, JS.JSON.stringify data)
 
 let init () = 
-    { Time = DateTime.Now; Content = None; Url = "http://ya.ru" }
+    { Time = DateTime.Now; Content = None; Url = "http://ya.ru" },
+    GetWeather
 
-let update msg (model: Model) : Model =
+let update msg (model: Model) : Model * Cmd<Msg> =
     let formatTime (time: DateTime) = time.ToString "dd.MM.yyyy HH:mm:ss"
     match msg with
     | GotWeather (time, value) -> 
-        { model with Time = time; Content = Some (Content.Body value) }
+        { model with Time = time; Content = Some (Content.Body value) }, []
     | FailedGotWeather (time, error) -> 
-        { model with Time = time; Content = Some (Content.Error error) }
+        { model with Time = time; Content = Some (Content.Error error) }, []
     | UrlChanged url -> 
-        { model with Url = url }
-    | GetWeather dispatch ->
-        promise {
-            let! res = 
-                tryFetch 
-                    model.Url
-                    [ RequestProperties.Mode RequestMode.Nocors
-                      requestHeaders [ContentType "text/html"] ]
+        { model with Url = url }, []
+    | GetWeather ->
+        let f () =
+            promise {
+                do! Promise.sleep 1000
+                let! response = 
+                    fetch 
+                        model.Url
+                        [ RequestProperties.Mode RequestMode.Nocors
+                          requestHeaders [ContentType "text/html"] ]
 
-            match res with 
-            | Ok response ->
-                let! text = response.text()
-                dispatch (GotWeather (DateTime.Now, text))
-            | Error (e: exn) ->
-                dispatch (FailedGotWeather (DateTime.Now, e.Message))
-        } |> Promise.start
-        model
-
-let subscribe (_initial: Model) : Cmd<Msg> =
-    fun (dispatch: Msg -> unit) ->
-        window.setInterval ((fun _ -> dispatch (GetWeather dispatch)), 1000) |> ignore
-    |> Cmd.ofSub
+                return! response.text()
+            }
+        model, 
+        Cmd.ofPromise 
+            f () 
+            (fun x -> Cmd.batch [ GotWeather (DateTime.Now, x); GetWeather ]) 
+            (fun e -> Cmd.batch [ FailedGotWeather (DateTime.Now, e.Message); GetWeather ])

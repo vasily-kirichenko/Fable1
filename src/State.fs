@@ -26,7 +26,7 @@ let urlUpdate (result: Option<Page>) model =
 let init result =
   let (counter, counterCmd) = Counter.State.init()
   let (home, homeCmd) = Home.State.init()
-  let timer = Timer.State.init()
+  let timer, timerCmd = Timer.State.init()
 
   let (model, cmd) =
     urlUpdate result
@@ -47,5 +47,5 @@ let update msg model =
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd
   | TimerMsg msg ->
-      let timer = Timer.State.update msg model.timer
-      { model with timer = timer }, Cmd.Empty
+      let timer, timerCmd = Timer.State.update msg model.timer
+      { model with timer = timer }, Cmd.map TimerMsg timerCmd
