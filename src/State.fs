@@ -12,6 +12,7 @@ let pageParser: Parser<Page -> Page, Page> =
     map About (s "about")
     map Counter (s "counter")
     map Home (s "home")
+    map Timer (s "timer")
   ]
 
 let urlUpdate (result: Option<Page>) model =
@@ -25,10 +26,13 @@ let urlUpdate (result: Option<Page>) model =
 let init result =
   let (counter, counterCmd) = Counter.State.init()
   let (home, homeCmd) = Home.State.init()
+  let timer = Timer.State.init()
+
   let (model, cmd) =
     urlUpdate result
       { currentPage = Home
         counter = counter
+        timer = timer
         home = home }
   model, Cmd.batch [ cmd
                      Cmd.map CounterMsg counterCmd
@@ -42,3 +46,6 @@ let update msg model =
   | HomeMsg msg ->
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd
+  | TimerMsg msg ->
+      let timer = Timer.State.update msg model.timer
+      { model with timer = timer }, Cmd.Empty

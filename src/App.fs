@@ -35,6 +35,7 @@ let menu currentPage =
         [ ClassName "menu-list" ]
         [ menuItem "Home" Home currentPage
           menuItem "Counter sample" Counter currentPage
+          menuItem "Timer" Timer currentPage
           menuItem "About" Page.About currentPage ] ]
 
 let root model dispatch =
@@ -43,6 +44,7 @@ let root model dispatch =
     function
     | Page.About -> Info.View.root
     | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
+    | Timer -> Timer.View.root model.timer (TimerMsg >> dispatch) 
     | Home -> Home.View.root model.home (HomeMsg >> dispatch)
 
   div
@@ -70,9 +72,12 @@ let root model dispatch =
         ] 
     ]
 
+let subscription model =
+  Cmd.map TimerMsg (Timer.State.subscribe model.timer)
 
 // App
 Program.mkProgram init update root
+|> Program.withSubscription subscription
 |> Program.toNavigable (parseHash pageParser) urlUpdate
 |> Program.withReact "elmish-app"
 

@@ -15,6 +15,10 @@
     <Compile Include="Home/Types.fs" />
     <Compile Include="Home/State.fs" />
     <Compile Include="Home/View.fs" />
+    <!-- Timer -->
+    <Compile Include="Timer/Types.fs"/>
+    <Compile Include="Timer/State.fs"/>
+    <Compile Include="Timer/View.fs"/>
     <!-- Navbar -->
     <Compile Include="Navbar/View.fs" />
     <!-- App -->
