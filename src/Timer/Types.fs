@@ -3,14 +3,14 @@ module Timer.Types
 open System
 
 type Msg = 
-    | GotWeather of DateTime * string
-    | FailedGotWeather of DateTime * string
-    | UrlChanged of string
+    | GotWeather of time: DateTime * content: string * elapsed: TimeSpan
+    | FailedGotWeather of time: DateTime * error: string
+    | UrlChanged of newUrl: string
     | GetWeather
 
 [<RequireQualifiedAccess>]
 type Content = 
-    | Body of string 
+    | Body of body: string * elapsed: TimeSpan
     | Error of string
 
 type Model = 

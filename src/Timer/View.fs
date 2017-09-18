@@ -14,10 +14,10 @@ let root (model: Model) dispatch =
         []
         [input 
             [ClassName "input"
-             Placeholder "html://ya.ru"
-             Value !^ model.Url
+             Placeholder "enter a Url"
+             DefaultValue !^ model.Url
              OnChange (fun e -> dispatch (UrlChanged (!!e.target?value)))
-             ]
+            ]
         ]
       br []
       div
@@ -28,7 +28,15 @@ let root (model: Model) dispatch =
           span [] [ str " " ]
           (match model.Content with
            | None -> span [] [ str "---" ]
-           | Some (Content.Body body) -> span [] [ str body ]
+           | Some (Content.Body (body, elapsed)) ->
+              span [] [
+                span 
+                  [Style [CSSProp.FontStyle "italic"]]
+                  [str (sprintf "(elapsed %0.0f ms)" (elapsed.TotalMilliseconds))]
+                span [] [
+                  str body 
+                ]
+              ]
            | Some (Content.Error error) ->
               span 
                 [Style 
