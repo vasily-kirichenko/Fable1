@@ -1,7 +1,13 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Fable1", "src/Fable1.fsproj", "{E5DEFC96-37CF-4844-9C9E-CFA0A9A8AED3}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fable1", "src/Fable1.fsproj", "{E5DEFC96-37CF-4844-9C9E-CFA0A9A8AED3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{8F5538A0-6EF8-493F-B4A3-A5F3E1395163}"
+ProjectSection(SolutionItems) = preProject
+	paket.lock = paket.lock
+	paket.dependencies = paket.dependencies
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

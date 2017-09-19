@@ -44,7 +44,7 @@ let root model dispatch =
     function
     | Page.About -> Info.View.root
     | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
-    | Timer -> Timer.View.root model.timer (TimerMsg >> dispatch) 
+    | Timer -> Timer.View.root model.timer (TimerMsg >> dispatch)
     | Home -> Home.View.root model.home (HomeMsg >> dispatch)
 
   div
@@ -53,7 +53,7 @@ let root model dispatch =
         [ ClassName "navbar-bg" ]
         [ div
             [ ClassName "container" ]
-            [ Navbar.View.root ] 
+            [ Navbar.View.root ]
         ]
       div
         [ ClassName "section" ]
@@ -66,10 +66,10 @@ let root model dispatch =
                     [ menu model.currentPage ]
                   div
                     [ ClassName "column" ]
-                    [ pageHtml model.currentPage ] 
-                ] 
-            ] 
-        ] 
+                    [ pageHtml model.currentPage ]
+                ]
+            ]
+        ]
     ]
 
 //let subscription model =

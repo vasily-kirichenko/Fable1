@@ -12,7 +12,7 @@ let root (model: Model) dispatch =
     [
       div
         []
-        [input 
+        [input
             [ClassName "input"
              Placeholder "enter a Url"
              DefaultValue !^ model.Url
@@ -30,16 +30,16 @@ let root (model: Model) dispatch =
            | None -> span [] [ str "---" ]
            | Some (Content.Body (body, elapsed)) ->
               span [] [
-                span 
+                span
                   [Style [CSSProp.FontStyle "italic"]]
                   [str (sprintf "(elapsed %0.0f ms)" (elapsed.TotalMilliseconds))]
                 span [] [
-                  str body 
+                  str body
                 ]
               ]
            | Some (Content.Error error) ->
-              span 
-                [Style 
+              span
+                [Style
                     [CSSProp.Color "red"
                      CSSProp.FontWeight !^ "bold" ]]
                 [str error])
